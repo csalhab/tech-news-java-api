@@ -58,7 +58,7 @@ public class Post implements Serializable {
 
     public Post() {
     }
-    
+
     public Post(Integer id, String title, String postUrl, int voteCount, Integer userId) {
         this.id = id;
         this.title = title;
