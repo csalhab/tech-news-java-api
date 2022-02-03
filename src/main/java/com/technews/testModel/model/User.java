@@ -35,6 +35,13 @@ public class User {
     Finally, we'll add @Transient to the loggedIn variable. @Transient signals to Spring Data JPA that this
     data is NOT to be persisted in the database, because we don't need or want a user's logged-in status
     to persist in the data.
+    Next we need to create relationships for the tables in the database. Remember one-to-many relationships in SQL?
+    Well, in Java, we can use an annotation called @OneToMany, which will create
+    the relationships between the tables automatically.
+    Above each of the list variables (posts, votes, and comments), add the @OneToMany annotation
+    Note that the Posts variable gets the FetchType of EAGER, meaning that this list will gather all of its
+    necessary information immediately after being created, while the variables designated as LAZY only gather
+    information as they need it. You can only ever designate a single list as EAGER.
      */
 
     @Id
@@ -51,7 +58,14 @@ public class User {
     @Transient
     boolean loggedIn;
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Post> posts;
+
+    // Need to use FetchType.LAZY to resolve multiple bags exception
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vote> votes;
+
+    // Need to use FetchType.LAZY to resolve multiple bags exception
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 }
