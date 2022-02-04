@@ -1,6 +1,4 @@
-package com.technews.testModel.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.technews.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
